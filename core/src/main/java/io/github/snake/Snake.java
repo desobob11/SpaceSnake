@@ -7,10 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
-
 import java.util.List;
-import java.util.LinkedList;
 import java.util.ArrayList;
 
 
@@ -24,11 +21,8 @@ public class Snake {
         private int dir;
 
         private static int[][] moves =  {{1,0}, {0,-1}, {-1, 0}, {0, 1}};
-        public static float SNAKE_SPEED = 10f;
-
 
         private static final float SIZE = 50f;
-
 
         private static final Texture texture = new Texture("body.png");
 
@@ -52,7 +46,7 @@ public class Snake {
         }
 
         public void grow_snake() {
-          //  if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+
             Sprite head = new Sprite();
             Texture t = new Texture("body.png");
 
@@ -67,7 +61,7 @@ public class Snake {
 
             this.body.add(1, head);
             this.hitboxes.add(1, hitbox);
-         //   }
+
         }
 
 
@@ -100,14 +94,9 @@ public class Snake {
 
         }
 
-
-
         public void draw_snake(SpriteBatch batch, ShapeRenderer shapes) {
             for (Sprite i : this.body) {
                 batch.draw(i.getTexture(), i.getX(), i.getY(), SIZE, SIZE);
-            }
-            for (Rectangle i : hitboxes) {
-            //    shapes.rect(i.getX(), i.getY(), i.getWidth(), i.getHeight());
             }
         }
 

@@ -1,26 +1,15 @@
 package io.github.snake;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import java.util.Random;
-
-import java.util.List;
-import java.util.LinkedList;
-import java.util.ArrayList;
 
 public class Fruit {
     private Sprite body;
     private Rectangle hitbox;
-
-
-
-
 
     private static final float SIZE = 50f;
 

@@ -51,23 +51,23 @@ public class Snake {
             this.dir = 3;
         }
 
-        private void grow_snake() {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-                Sprite head = new Sprite();
-                Texture t = new Texture("body.png");
+        public void grow_snake() {
+          //  if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            Sprite head = new Sprite();
+            Texture t = new Texture("body.png");
 
-                head.setPosition(this.body.get(0).getX(), this.body.get(0).getY());
-                head.setColor(124f, 124f, 124f, 1f);
-                head.setTexture(texture);
+            head.setPosition(this.body.get(0).getX(), this.body.get(0).getY());
+            head.setColor(124f, 124f, 124f, 1f);
+            head.setTexture(texture);
 
-                Rectangle hitbox = new Rectangle();
-                hitbox.setWidth(SIZE - 1);
-                hitbox.setHeight(SIZE - 1);
-                hitbox.setPosition(head.getX(), head.getY());
+            Rectangle hitbox = new Rectangle();
+            hitbox.setWidth(SIZE - 1);
+            hitbox.setHeight(SIZE - 1);
+            hitbox.setPosition(head.getX(), head.getY());
 
-                this.body.add(1, head);
-                this.hitboxes.add(1, hitbox);
-            }
+            this.body.add(1, head);
+            this.hitboxes.add(1, hitbox);
+         //   }
         }
 
 
@@ -97,8 +97,6 @@ public class Snake {
                 this.hitboxes.get(0).setPosition(this.body.get(0).getX(), this.body.get(0).getY());
             }
             last_refresh += Gdx.graphics.getDeltaTime();
-            System.out.print(this.hitboxes.get(0).getWidth());
-            grow_snake();
 
         }
 
@@ -106,10 +104,10 @@ public class Snake {
 
         public void draw_snake(SpriteBatch batch, ShapeRenderer shapes) {
             for (Sprite i : this.body) {
-              //  batch.draw(i.getTexture(), i.getX(), i.getY(), SIZE, SIZE);
+                batch.draw(i.getTexture(), i.getX(), i.getY(), SIZE, SIZE);
             }
             for (Rectangle i : hitboxes) {
-                shapes.rect(i.getX(), i.getY(), i.getWidth(), i.getHeight());
+            //    shapes.rect(i.getX(), i.getY(), i.getWidth(), i.getHeight());
             }
         }
 
@@ -121,5 +119,14 @@ public class Snake {
                 }
             }
             return false;
+        }
+
+        public boolean is_colliding_edges() {
+            Sprite head = body.get(0);
+            return (head.getX() < 0 || head.getX() + SIZE > Main.WINDOW_WIDTH || head.getY() < 0 || head.getY() + SIZE > Main.WINDOW_HEIGHT);
+        }
+
+        public boolean ate_fruit(Fruit fruit) {
+            return hitboxes.get(0).overlaps(fruit.getPosition());
         }
 }

@@ -14,10 +14,14 @@ import com.badlogic.gdx.utils.ScreenUtils;
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
     public static boolean SNAKE_IS_COLLIDING = false;
+    public static float WINDOW_WIDTH = 1200;
+    public static float WINDOW_HEIGHT = 900;
+
     private SpriteBatch batch;
     private ShapeRenderer shapes;
-    Snake snake;
-    Texture text;
+    private Snake snake;
+    private Texture text;
+    private Fruit fruit;
 
     @Override
     public void create() {
@@ -26,6 +30,7 @@ public class Main extends ApplicationAdapter {
         shapes.setColor(Color.RED);
         shapes.setAutoShapeType(true);
         snake = new Snake(0, 0);
+        fruit = new Fruit();
     }
 
     @Override
@@ -35,19 +40,27 @@ public class Main extends ApplicationAdapter {
 
             ScreenUtils.clear(0.0f, 0.0f, 0.0f, 1f);
             batch.begin();
-            shapes.begin();
+           // shapes.begin();
 
+            fruit.draw_fruit(batch, shapes);
             snake.draw_snake(batch, shapes);
             snake.move();
-            SNAKE_IS_COLLIDING = snake.is_colliding_self();
+            if (snake.ate_fruit(fruit)) {
+                fruit = new Fruit();
+                snake.grow_snake();
+            }
+            SNAKE_IS_COLLIDING = snake.is_colliding_self() || snake.is_colliding_edges();
 
 
-            shapes.end();
+            //shapes.end();
             batch.end();
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.PERIOD)) {
             SNAKE_IS_COLLIDING = false;
             snake = new Snake(0, 0);
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.COMMA)) {
+            fruit = new Fruit();
         }
     }
 

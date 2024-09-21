@@ -6,8 +6,8 @@ import io.github.snake.Main;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
-    public static final float WINDOW_WIDTH = 1200;
-    public static final float WINDOW_HEIGHT = 900;
+    public static final int WINDOW_WIDTH = 800;
+    public static final int WINDOW_HEIGHT = 600;
 
     public static void main(String[] args) {
         if (StartupHelper.startNewJvmIfRequired()) return; // This handles macOS support and helps on Windows.
@@ -18,7 +18,7 @@ public class Lwjgl3Launcher {
         Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
         config.setTitle("Snake");
         config.setForegroundFPS(60);
-        config.setWindowedMode(1200, 900);
+        config.setWindowedMode(WINDOW_WIDTH, WINDOW_HEIGHT);
         return new Lwjgl3Application(new Main(), config);
     }
 

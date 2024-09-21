@@ -30,10 +30,10 @@ public class Snake {
             this.body = new ArrayList<>();
             this.hitboxes = new ArrayList<>();
 
-            Sprite head = new Sprite();
+            Sprite head = new Sprite(texture);
 
             head.setPosition(x, y);
-            head.setTexture(texture);
+            head.setSize(SIZE, SIZE);
 
             Rectangle hitbox = new Rectangle();
             hitbox.setWidth(SIZE -1);
@@ -47,12 +47,12 @@ public class Snake {
 
         public void grow_snake() {
 
-            Sprite head = new Sprite();
+            Sprite head = new Sprite(texture);
             Texture t = new Texture("body.png");
 
             head.setPosition(this.body.get(0).getX(), this.body.get(0).getY());
             head.setColor(124f, 124f, 124f, 1f);
-            head.setTexture(texture);
+            head.setSize(SIZE, SIZE);
 
             Rectangle hitbox = new Rectangle();
             hitbox.setWidth(SIZE - 1);
@@ -96,7 +96,7 @@ public class Snake {
 
         public void draw_snake(SpriteBatch batch, ShapeRenderer shapes) {
             for (Sprite i : this.body) {
-                batch.draw(i.getTexture(), i.getX(), i.getY(), SIZE, SIZE);
+                i.draw(batch);
             }
         }
 

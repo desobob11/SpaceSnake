@@ -5,10 +5,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
+
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends ApplicationAdapter {
@@ -24,6 +28,9 @@ public class Main extends ApplicationAdapter {
     private Background back_close;
     Texture text;
     TextureRegion textR;
+    BitmapFont font;
+    int score = 0;
+
 
     @Override
     public void create() {
@@ -36,21 +43,26 @@ public class Main extends ApplicationAdapter {
         text = new Texture("back/space2.png");
         textR = new TextureRegion(text, 1600, 100);
         back_close = new Background(text);
+
+        font = new BitmapFont();
+
+
     }
 
 
     @Override
     public void render() {
-        ScreenUtils.clear(Color.valueOf("#120326"));
+        ScreenUtils.clear(Color.valueOf("#000000"));
             batch.begin();
             back_close.draw_background(batch);
+            font.draw(batch, String.format("Score: %d", score), 10, WINDOW_HEIGHT - 10);
+
             play_game(batch);
 
 
 
 
-           // shapes.begin();
-
+           // shapes.begin()
             batch.end();
     }
 
@@ -58,6 +70,7 @@ public class Main extends ApplicationAdapter {
     public void dispose() {
         batch.dispose();
         shapes.dispose();
+        font.dispose();
     }
 
     public void play_game(SpriteBatch batch) {
@@ -72,9 +85,12 @@ public class Main extends ApplicationAdapter {
             if (snake.ate_fruit(fruit)) {
                 fruit = new Fruit();
                 snake.grow_snake();
+                ++score;
             }
             SNAKE_IS_COLLIDING = snake.is_colliding_self() || snake.is_colliding_edges();
-
+            if (SNAKE_IS_COLLIDING) {
+                score = 0;
+            }
 
             //shapes.end();
         }
